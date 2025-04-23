@@ -11,6 +11,7 @@ if __name__ == "__main__":
     # Obtener las queries y documentos
     queries = model.queries
     documents = model.documents
+    doc_tokens = model.doc_tokens
 
     # Imprimir las queries y documentos para verificar la carga correcta
     # print("Queries:")
@@ -20,3 +21,12 @@ if __name__ == "__main__":
     # print("\nDocuments:")
     # for idx, doc in enumerate(documents):
     #     print(f"{idx}: {doc[:20]}")
+
+    # Imprimir los elementos en doc_tokens
+    print("Doc Tokens:")
+    for idx, tokens in enumerate(doc_tokens):
+        print(
+            f"Documento {idx}: {tokens[:10]}"
+        )  # Imprime los primeros 10 tokens de cada documento
+        if idx >= 50:
+            break

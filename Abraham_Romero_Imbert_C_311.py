@@ -80,11 +80,15 @@ class InformationRetrievalModel:
         # Lo primero debe ser tokenizar, normalizar y lemalizar los documentos
         # para eso usamos spacy
 
-        nlp = spacy.load("es_core_news_sm")  # Usamos un modelo en español
+        nlp = spacy.load("en_core_web_sm")  # Usamos un modelo en inglés
 
         def _tokenizar_normalizar_lemmatizar(texto):
             doc = nlp(texto)
-            tokens = [token.lemma_.lower() for token in doc if token.is_alpha]
+            tokens = [
+                token.lemma_.lower()
+                for token in doc
+                if token.is_alpha and not token.is_stop
+            ]
             return tokens
 
         # Preprocesamos cada documento para obtener los tokens
@@ -94,7 +98,7 @@ class InformationRetrievalModel:
             ]
             return docs_tokens
 
-        _preprocesar_documentos()
+        self.doc_tokens = _preprocesar_documentos()
 
     def predict(self, top_k: int) -> Dict[str, Dict[str, List[str]]]:
         """
